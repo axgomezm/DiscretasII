@@ -43,7 +43,7 @@ def grupo(matrix):
         if not tiene_inverso:
             return False
     
-    print(f'la matrix dada es un cuadrado latino: {matrix}')
+    print(f'la matrix dada es un grupo: {matrix}')
     return True
 
 def cuadrado_latino(matrix):
