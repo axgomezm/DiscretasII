@@ -7,7 +7,7 @@ def grupo(matrix):
         for j in range(len(matrix)):
             producto = matrix[i][j]
             tiene_producto = False
-            for k in range(len(matriz)):
+            for k in range(len(matrix)):
                 if matrix[j][k] * matrix[k][i] == producto:
                     tiene_producto = True
                     break
