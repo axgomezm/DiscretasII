@@ -1,49 +1,50 @@
 def cuadrado_y_grupo(matrix):
     cuadrado_latino(matrix)
     grupo(matrix)
-
 def grupo(matrix):
-     # se verifica si se cumple el cierre
-    for i in range(len(matrix)):
-        for j in range(len(matrix)):
-            concatenacion = matrix[i] + matrix[j]
-            if concatenacion not in matrix:
-                print('no cumple la propiedad de cierre')
+# verifica si se cumple el cierre
+    for i in range(len(matriz)):
+        for j in range(len(matriz)):
+            producto = matriz[i][j]
+            tiene_producto = False
+            for k in range(len(matriz)):
+                if matriz[j][k] * matriz[k][i] == producto:
+                    tiene_producto = True
+                    break
+            if not tiene_producto:
                 return False
     
-    # se verifica si se cumple si es asociativa
-    for i in range(len(matrix)):
-        for j in range(len(matrix)):
-            for k in range(len(matrix)):
-                concatenacion1 = matrix[i] + matrix[j] + matrix[k]
-                concatenacion2 = matrix[i] + (matrix[j] + matrix[k])
-                if concatenacion1 != concatenacion2:
-                    print('no cumple la propiedad de asociatividad')
+    # verificar si es asociativa
+    for i in range(len(matriz)):
+        for j in range(len(matriz)):
+            for k in range(len(matriz)):
+                producto1 = matriz[i][j] * matriz[j][k] * matriz[k][i]
+                producto2 = matriz[i][k] * matriz[k][j] * matriz[j][i]
+                if producto1 != producto2:
                     return False
     
-    # Verifica si se cumple la identidad
+    # verifica si existe la identidad
     identidad = None
-    for i in range(len(matrix)):
-        tiene_identidad = all(matrix[j] + matrix[i] == matrix[j] for j in range(len(matrix)))
-        if tiene_identidad:
-            identidad = matrix[i]
+    for i in range(len(matriz)):
+        tiene_identidad = all(matriz[j][i] == matriz[i][j] for j in range(len(matriz)))
+        if tiene_identidad and matriz[i][i] == 1:
+            identidad = i
             break
     if identidad is None:
-        print('no cumple la propiedad identidad')
         return False
     
-    # Verificar inverso
-    for i in range(len(matrix)):
+    # verifica si tiene inverso
+    for i in range(len(matriz)):
         tiene_inverso = False
-        for j in range(len(matrix)):
-            if matrix[i] + matrix[j] == identidad and matrix[j] + matrix[i] == identidad:
+        for j in range(len(matriz)):
+            if matriz[i][j] * matriz[j][i] == 1 and matriz[j][j] == 1:
                 tiene_inverso = True
                 break
         if not tiene_inverso:
-            print('no cumple la propiedad inverso')
             return False
-    print(f'la matrix es un grupo {matrix}')
-    return
+    
+    print(f'la matrix dada es un cuadrado latino: {matrix}')
+    return True
 
 def cuadrado_latino(matrix):
     #con el ciclo for se revisa que no haya elementos repetidos comparando el set creado a la longitud de la fila
